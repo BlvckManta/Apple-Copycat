@@ -1,0 +1,473 @@
+/* Universal box-sizing, good practice */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: smaller; /* Consider using a relative unit like 'em' or 'rem' for accessibility */
+    margin: 0;
+    padding: 0;
+}
+
+/* HEADER */
+header {
+    width: 100%;
+    background-color: #f5f5f7; /* A light background is common for Apple-like sites */
+    padding: 10px 0; /* Add some vertical padding to the header */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for depth */
+}
+.logo{
+    width: 15px;
+}
+
+.navbar {
+    width: 100%; /* Ensure the nav spans the full width of its parent (header) */
+    display: flex; /* Make the nav a flex container */
+    justify-content: center !important; /* This is key: centers the content (the ul) horizontally on larger screens */
+    align-items: center; /* Vertically align items in the nav, if it had a fixed height */
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Keep overflow hidden if you have specific designs in mind */
+}
+
+.navbar ul {
+    list-style-type: none; /* Removes bullet points */
+    margin: 0; /* Remove default ul margin */
+    padding: 0; /* Remove default ul padding */
+    display: flex; /* Make the ul a flex container for its list items */
+    justify-content: center; /* Centers the li items within the ul */
+    flex-wrap: nowrap; /* ! Important: Prevent wrapping on larger screens until media query */
+    gap: 20px; /* Default gap for larger screens */
+}
+
+
+
+.navbar li a {
+    display: block; /* Make the entire padding area clickable */
+    color: black;
+    text-align: center;
+    padding: 14px 16px; /* Default padding for larger screens */
+    text-decoration: none;
+    font-size: smaller;
+    white-space: nowrap; /* Prevents text from wrapping within a link */
+    transition: padding 0.2s ease-in-out, font-size 0.2s ease-in-out, gap 0.2s ease-in-out; /* Smooth transition for resizing */
+}
+
+.navbar li a:hover {
+    color: #007aff; /* Example hover color, typical for Apple-like links */
+}
+
+/* Styles for search and bag icons - adjust size if needed */
+.navbar svg {
+    height: 18px; /* Adjust height to match surrounding text size */
+    width: 18px; /* Adjust width */
+    fill: currentColor; /* Inherits the color from the parent 'a' tag */
+    vertical-align: middle; /* Aligns icons nicely with text */
+}
+
+/* Hamburger menu styles */
+.hamburger-menu {
+    display: none; /* Hidden by default for larger screens */
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 25px;
+    height: 20px;
+    /* No absolute positioning or auto margins here for responsiveness on large screens */
+}
+
+.hamburger-menu .bar {
+    width: 100%;
+    height: 3px;
+    background-color: black;
+    border-radius: 5px;
+}
+
+footer{
+    background-color: #f6f6f6 ;
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-weight: lighter;
+    color: grey;
+    width: auto;
+    font-size: smaller;
+    margin-left: 20px;
+}
+
+
+
+
+/* --- INTERMEDIATE MEDIA QUERY FOR NAVBAR SQUEEZING --- */
+/* Squeeze nav items for smaller desktop/larger tablet screens */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .navbar ul {
+        gap: 10px; /* Reduce gap between items */
+    }
+
+    .navbar li a {
+        padding: 10px 10px; /* Reduce horizontal padding */
+        font-size: 13px; /* Optionally slightly reduce font size */
+    }
+}
+
+
+/* --- MOBILE MEDIA QUERY --- */
+/* Original Media Query for Hamburger Menu - takes over at 768px and below */
+@media (max-width: 768px) {
+    .navbar ul {
+        display: none; /* Hide the full navigation menu */
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        background-color: #f5f5f7;
+        position: absolute; /* Position relative to the nearest positioned ancestor (body or header) */
+        top: 55px; /* Adjust based on your header height */
+        left: 0;
+        z-index: 100;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        gap: 0; /* No gap in column layout */
+    }
+    .ipad-air{
+    height: auto !important ;
+}
+
+    .navbar ul.active {
+        display: flex; /* JavaScript will add this class to show the menu */
+    }
+
+    .navbar li {
+        margin: 10px 0; /* Add vertical spacing for mobile menu items */
+    }
+
+    .navbar li a {
+        padding: 10px 0; /* Adjust padding for stacked items */
+        font-size: 16px; /* Make mobile menu text larger for readability */
+    }
+
+    .hamburger-menu {
+        display: flex ; /* Show the hamburger menu on small screens */
+        order: -1 ; /* Push the hamburger to the start (left) of the flex container */
+    }
+
+    .navbar {
+        justify-content: flex-start !important; /* Align items (hamburger) to the start (left) of the nav */
+        padding: 10px 20px !important; /* Add horizontal padding to the nav */
+    }
+}
+
+
+/* --- Other Sections --- */
+
+/* Section for the two images (WWDC and iPad Air) */
+section {
+    padding: 20px; /* Add some overall padding around the section */
+}
+
+.column1 {
+    /* This div is the container for the ul, it doesn't need display:flex itself for this specific purpose */
+    /* Unless you want to control its content (the ul) as a flex item within the section */
+    margin: 0 auto; /* Center the column1 div itself if it has a max-width */
+    max-width: 1200px; /* Optional: limit the max width of the content for better readability on very large screens */
+}
+
+.column1 ul {
+    list-style: none; /* Remove bullet points */
+    margin: 0; /* Remove default ul margin */
+    padding: 0; /* Remove default ul padding */
+    display: flex; /* !!! THIS IS THE KEY !!! Make the ul a flex container */
+    justify-content: center; /* Center the li items horizontally within the ul */
+    align-items: flex-start; /* Align items to the top if they have different heights */
+    gap: 20px; /* Adds space between the list items (and thus, the images) */
+    flex-wrap: wrap; /* Allows items to wrap to the next line on smaller screens */
+}
+
+.column1 li {
+    /* Set flex basis for responsive two-column layout */
+    flex: 1 1 calc(50% - 10px); /* flex-grow flex-shrink flex-basis. 50% width minus half the gap for each item. */
+    max-width: calc(50% - 10px); /* Ensure max width is half the container minus the gap */
+    text-align: center; /* Center image within li if it's smaller than li */
+}
+
+.column1 li a {
+    display: block; /* Ensure the link takes full space within the li */
+    text-decoration: none;
+    color: inherit; /* Inherit text color if any text is inside the link */
+}
+
+.column1 img {
+    max-width: 100%; /* Ensure image doesn't overflow its parent li */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Removes extra space below images */
+    border-radius: 10px; /* Optional: adds rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
+}
+
+.apple-ai{
+  background: linear-gradient(to right, orange , yellow, green, cyan, blue, violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 60px;
+  line-height: 60px;
+  font-size: large !important;
+  font-weight: 700 !important;
+  
+}
+
+.ipad-air{
+    height: 540px !important ;
+}
+
+.apple-card{
+    height: 470px !important ;
+}
+
+
+.wwdc-text, .ipad-air-text {
+    margin-top: 20px; /* Add some space above the text */
+    text-align: center;
+}
+
+/* carrousel */
+
+@layer base, demo;
+@import url(https://fonts.bunny.net/css?family=abel:400);
+
+@layer demo {
+	.carousel {
+		--items: 6;
+		--carousel-duration: 40s;
+		@media (width > 600px) {
+			--carousel-duration: 30s;
+		}
+		--carousel-width: min(
+			80vw,
+			1200px
+		); /* note - it will "break" if it gets too wide and there aren't enough items */
+		--carousel-item-width: 280px;
+		--carousel-item-height: 450px;
+		--carousel-item-gap: 2rem;
+
+		--clr-cta: rgb(0, 132, 209);
+
+		position: relative;
+		width: var(--carousel-width);
+		height: var(--carousel-item-height);
+		overflow: clip;
+
+		&[mask] {
+			/* fade out on sides */
+			mask-image: linear-gradient(
+				to right,
+				transparent,
+				black 10% 90%,
+				transparent
+			);
+		}
+
+		&[reverse] > article {
+			animation-direction: reverse;
+		}
+		/* hover pauses animation */
+		&:hover > article {
+			animation-play-state: paused;
+		}
+	}
+	.carousel > article {
+		position: absolute;
+		top: 0;
+		left: calc(100% + var(--carousel-item-gap));
+		width: var(--carousel-item-width);
+		height: var(--carousel-item-height);
+		display: grid;
+		grid-template-rows: 200px auto 1fr auto;
+		gap: 0.25rem;
+		border: 1px solid light-dark(rgba(0 0 0 / 0.25), rgba(255 255 255 / 0.15));
+
+		padding-block-end: 1rem;
+		border-radius: 10px;
+		background: light-dark(white, rgba(255 255 255 / 0.05));
+		color: light-dark(rgb(49, 65, 88), white);
+
+		/* animation */
+		will-change: transform;
+		animation-name: marquee;
+		animation-duration: var(--carousel-duration);
+		animation-timing-function: linear;
+		animation-iteration-count: infinite;
+		animation-delay: calc(
+			var(--carousel-duration) / var(--items) * 1 * var(--i) * -1
+		);
+		&:nth-child(1) {
+			--i: 0;
+		}
+		&:nth-child(2) {
+			--i: 1;
+		}
+		&:nth-child(3) {
+			--i: 2;
+		}
+		&:nth-child(4) {
+			--i: 3;
+		}
+		&:nth-child(5) {
+			--i: 4;
+		}
+		&:nth-child(6) {
+			--i: 5;
+		}
+		&:nth-child(7) {
+			--i: 6;
+		}
+		&:nth-child(8) {
+			--i: 7;
+		}
+	}
+	.carousel img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+
+		border-radius: 10px 10px 0 0;
+	}
+	.carousel > article > *:not(img) {
+		padding: 0 1rem;
+	}
+	.carousel > article > div {
+		grid-row: span 2;
+		display: grid;
+		grid-template-rows: subgrid;
+		font-size: 0.8rem;
+	}
+	.carousel > article h2 {
+		font-size: 1.2rem;
+		font-weight: 300;
+		padding-block: 0.75rem 0.25rem;
+		margin: 0;
+	}
+	.carousel > article p {
+		margin: 0;
+	}
+	.carousel > article a {
+		text-decoration: none;
+		text-transform: lowercase;
+		border: 1px solid var(--clr-cta);
+		color: light-dark(var(--clr-cta), white);
+		border-radius: 3px;
+		padding: 0.25rem 0.5rem;
+		place-self: start;
+		transition: 150ms ease-in-out;
+		&:hover,
+		&:focus-visible {
+			background-color: var(--clr-cta);
+			color: white;
+			outline: none;
+		}
+	}
+
+	@keyframes marquee {
+		100% {
+			transform: translateX(
+				calc(
+					(var(--items) * (var(--carousel-item-width) + var(--carousel-item-gap))) *
+						-1
+				)
+			);
+		}
+	}
+}
+
+/* general styling */
+@layer base {
+	* {
+		box-sizing: border-box;
+	}
+	:root {
+		color-scheme: light dark;
+
+		--bg-dark: rgb(2, 6, 24);
+		--bg-light: rgb(229, 229, 229);
+		--txt-light: rgb(10, 10, 10);
+		--txt-dark: rgb(245, 245, 245);
+	}
+	
+	
+}
+
+
+/* Media query for smaller screens for .column1 (stacks images vertically) */
+@media (max-width: 768px) {
+    .column1 ul {
+        flex-direction: column; /* Stack images vertically */
+        align-items: center; /* Center them horizontally when stacked */
+    }
+
+    .ipad-air{
+    height: auto !important ;
+}
+
+.apple-card{
+    height: auto !important ;
+}
+
+    .column1 li {
+        width: 90%; /* Allow list item to take more width when stacked */
+        margin-bottom: 20px; /* Add space between stacked items */
+        max-width: none; /* Remove max-width constraint for single column */
+    }
+}
+
+
+/* General product sections (Watch, iPhone, Macbook) */
+.watch, .iPhone, .macbook {
+    margin-top: 40px; /* Add some space above each section */
+    text-align: center;
+    padding: 20px; /* Add internal padding */
+}
+
+.watch h2, .iPhone h2, .macbook h2 {
+    font-size: 2.5em; /* Larger headings */
+    margin-bottom: 10px;
+}
+
+.watch p, .iPhone p, .macbook p {
+    font-size: 1.2em; /* Slightly larger paragraph text */
+    margin-bottom: 20px;
+}
+
+.watch img, .iPhone img, .macbook img {
+    max-width: 100%; /* Ensure images don't overflow their containers */
+    height: auto;
+    display: block; /* Remove extra space below image */
+    margin: 20px auto 0 auto; /* Center images and add top margin */
+    border-radius: 10px; /* Optional: slight rounded corners for images */
+}
+
+.button {
+    background-color: #007aff; /* Apple's typical blue */
+    border: none;
+    color: white;
+    padding: 12px 25px; /* Slightly adjusted padding */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 8px; /* More space between buttons */
+    cursor: pointer;
+    border-radius: 30px;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out; /* Smooth transitions */
+}
+
+#buy {
+    background-color: white;
+    color: #007aff;
+    border: 2px solid #007aff;
+}
+
+#buy:hover {
+    background-color: #007aff;
+    color: white;
+}
